@@ -3,6 +3,10 @@ from sys import exit#Basically AllCommand of python
 from random import randint
 pygame.init()#Initializes all of pygame
 
+#Big Surface
+sky_surface=pygame.image.load('Graphics\sky1.png').convert()
+ground_surface=pygame.image.load('Graphics\ground1.png').convert()
+
 #Mob
 snail1=pygame.image.load('Graphics\Snail\snail1.png').convert_alpha()
 snail2=pygame.image.load('Graphics\Snail\snail2.png').convert_alpha()
