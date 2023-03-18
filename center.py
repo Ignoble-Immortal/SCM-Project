@@ -17,7 +17,15 @@ fly_index=0
 fly_surf=fly_frames[fly_index]
 
 obstacle_rect_list=[]
-
+#Player
+player_walk1=pygame.image.load('Graphics\Player\walk1.png').convert_alpha()
+player_walk2=pygame.image.load('Graphics\Player\walk2.png').convert_alpha()
+player_walk=[player_walk1,player_walk2]
+player_index=0
+player_jump=pygame.image.load('Graphics\Player\jump1.png').convert_alpha()
+player_surf=player_walk[player_index]
+player_rect=player_surf.get_rect(midbottom=(80,300))
+player_gravity=0
 #Intro
 player_stand=pygame.image.load('Graphics\Player\stand1.png').convert_alpha()
 player_stand=pygame.transform.rotozoom(player_stand,0,2)
