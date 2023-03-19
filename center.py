@@ -3,6 +3,18 @@ from sys import exit#Basically AllCommand of python
 from random import randint
 pygame.init()#Initializes all of pygame
 
+def obstacle_movement(obstacle_list):
+    if obstacle_list:
+        for obstacle_rect in obstacle_list:
+            obstacle_rect.x-=5
+
+            if obstacle_rect.bottom==300: screen.blit(snail_surf,obstacle_rect)
+            else: screen.blit(fly_surf,obstacle_rect)
+        obstacle_list=[obstacle for obstacle in obstacle_list if obstacle.x>-100]
+
+        return obstacle_list
+    else: return []
+
 #Big Surface
 sky_surface=pygame.image.load('Graphics\sky1.png').convert()
 ground_surface=pygame.image.load('Graphics\ground1.png').convert()
