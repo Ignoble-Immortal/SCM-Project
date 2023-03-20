@@ -3,6 +3,13 @@ from sys import exit#Basically AllCommand of python
 from random import randint
 pygame.init()#Initializes all of pygame
 
+def display_score():
+    current_time=int(pygame.time.get_ticks()/1000)-start_time
+    score_surf=text_font.render(f'Score: {current_time}', False, (64, 64, 64))
+    score_rect=score_surf.get_rect(center=(400, 50))
+    screen.blit(score_surf,score_rect)
+    return current_time
+
 def obstacle_movement(obstacle_list):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
@@ -14,12 +21,6 @@ def obstacle_movement(obstacle_list):
 
         return obstacle_list
     else: return []
-def display_score():
-    current_time=int(pygame.time.get_ticks()/1000)-start_time
-    score_surf=text_font.render(f'Score: {current_time}', False, (64, 64, 64))
-    score_rect=score_surf.get_rect(center=(400, 50))
-    screen.blit(score_surf,score_rect)
-    return current_time
 
 #Big Surface
 sky_surface=pygame.image.load('Graphics\sky1.png').convert()
