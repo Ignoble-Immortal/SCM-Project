@@ -28,6 +28,15 @@ def collisions(player,obstacles):
             if player.colliderect(obstacle_rect): return False
     return True
 
+def player_animations():
+    global player_surf, player_index
+
+    if player_rect.bottom<300: player_surf=player_jump
+    else:
+        player_index+=0.1
+        if player_index>=len(player_walk): player_index=0
+        player_surf=player_walk[int(player_index)]
+
 #Big Surface
 sky_surface=pygame.image.load('Graphics\sky1.png').convert()
 ground_surface=pygame.image.load('Graphics\ground1.png').convert()
