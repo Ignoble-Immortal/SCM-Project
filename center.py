@@ -93,3 +93,76 @@ pygame.time.set_timer(snail_animation_timer,500)
 fly_animation_timer=pygame.USEREVENT+3
 pygame.time.set_timer(fly_animation_timer,200)
 
+while True:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            pygame.quit()#Opposite of 'init()'
+            exit()#Look at line 2
+
+        if game_active:
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                if player_rect.collidepoint(event.pos):
+                    player_gravity=-20
+            if event.type==pygame.KEYDOWN:#Any key pressed
+                if event.key==pygame.K_SPACE and player_rect.bottom>=300:
+                    player_gravity=-20
+        else:
+            if event.type == pygame.KEYDOWN and event.key==pygame.K_SPACE:
+                game_active=True
+
+                start_time=int(pygame.time.get_ticks()/1000)
+        if game_active:
+            if event.type==obstacle_timer:
+                if randint(0,2):
+                    obstacle_rect_list.append(snail_surf.get_rect(bottomright=(randint(900,1100),300)))
+                else:
+                    obstacle_rect_list.append(fly_surf.get_rect(bottomright=(randint(900, 1100), 210)))
+            if event.type==snail_animation_timer:
+                if snail_index==0: snail_index=1
+                else: snail_index=0
+                snail_surf=snail_frames[snail_index]
+            if event.type==fly_animation_timer:
+                if fly_index==0: fly_index=1
+                else: fly_index=0
+                fly_surf=fly_frames[fly_index]
+
+    if game_active:
+        #Big surface
+        screen.blit(sky_surface,(0,0))
+        screen.blit(ground_surface,(0,300))
+        #Misc
+        #pygame.draw.rect(screen,'#c0e8ec',score_rect)
+        #pygame.draw.rect(screen, '#c0e8ec', score_rect,10)
+        #pygame.draw.line(screen,'Gold',(0,0),pygame.mouse.get_pos(),10)
+        #screen.blit(score_surf,score_rect)
+        score=display_score()
+        #Mob
+        #snail_rect.x-=4
+        #if snail_rect.right<=0: snail_rect.left=800#When too back goes to the far right edge of Display surface
+        #screen.blit(snail_surf,snail_rect)
+
+        #Player
+        player_gravity+=1
+        player_rect.y+=player_gravity
+        if player_rect.bottom>=300: player_rect.bottom=300
+        player_animations()
+        screen.blit(player_surf, player_rect)
+        #Obstacle movement
+        obstacle_rect_list=obstacle_movement(obstacle_rect_list)
+        #Collisions
+        game_active=collisions(player_rect,obstacle_rect_list)
+
+    else:
+        screen.fill('Black')
+        screen.blit(player_stand,player_stand_rect)
+        obstacle_rect_list.clear()
+        player_rect.midbottom=(80,300)
+        player_gravity=0
+
+        score_message = text_font.render(f'Your score: {score}', False,'Red')
+        score_message_rect=score_message.get_rect(center=(400,330))
+        screen.blit(game_name,game_name_rect)
+        if score==0: screen.blit(game_message, game_message_rect)
+        else: screen.blit(score_message,score_message_rect)
+    pygame.display.update()
+    clock.tick(60)
