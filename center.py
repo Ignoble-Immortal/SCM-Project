@@ -37,6 +37,14 @@ def player_animations():
         if player_index>=len(player_walk): player_index=0
         player_surf=player_walk[int(player_index)]
 
+screen=pygame.display.set_mode((800,400))#Display surface
+pygame.display.set_caption('Vader')
+clock=pygame.time.Clock()
+text_font=pygame.font.Font('Fonts\Pixeltype.ttf',50)
+game_active=False
+start_time=0
+score=0
+
 #Big Surface
 sky_surface=pygame.image.load('Graphics\sky1.png').convert()
 ground_surface=pygame.image.load('Graphics\ground1.png').convert()
