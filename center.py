@@ -22,6 +22,12 @@ def obstacle_movement(obstacle_list):
         return obstacle_list
     else: return []
 
+def collisions(player,obstacles):
+    if obstacles:
+        for obstacle_rect in obstacles:
+            if player.colliderect(obstacle_rect): return False
+    return True
+
 #Big Surface
 sky_surface=pygame.image.load('Graphics\sky1.png').convert()
 ground_surface=pygame.image.load('Graphics\ground1.png').convert()
